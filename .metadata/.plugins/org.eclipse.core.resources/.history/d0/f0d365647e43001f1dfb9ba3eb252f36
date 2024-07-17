@@ -1,0 +1,5 @@
+package com.analytics.social.entity;
+
+public class User {
+
+}

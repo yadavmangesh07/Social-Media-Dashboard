@@ -1,0 +1,5 @@
+package com.analytics.social.controller;
+
+public class TwitterV2Controller {
+
+}

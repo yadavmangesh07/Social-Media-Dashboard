@@ -1,0 +1,5 @@
+package com.analytics.social.service;
+
+public class TwitterService {
+
+}

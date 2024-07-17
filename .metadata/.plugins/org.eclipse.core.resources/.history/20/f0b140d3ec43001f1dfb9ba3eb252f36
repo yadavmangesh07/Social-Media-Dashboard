@@ -1,0 +1,5 @@
+package com.analytics.social.component;
+
+public interface DataLoader {
+
+}

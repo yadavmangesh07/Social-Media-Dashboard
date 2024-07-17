@@ -1,0 +1,9 @@
+package com.analytics.social.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.analytics.social.entity.Analytics;
+
+public interface AnalyticsRepository extends JpaRepository<Analytics, Long> {
+    // Custom query methods can be defined here if needed
+}

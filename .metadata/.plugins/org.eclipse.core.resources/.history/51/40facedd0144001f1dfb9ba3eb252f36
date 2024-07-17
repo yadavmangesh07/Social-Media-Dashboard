@@ -1,0 +1,36 @@
+package com.analytics.social.service;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+
+@Service
+public class TwitterV2Service {
+
+    @Value("${twitter.bearer.token}")
+    private String bearerToken;
+
+    public String getUserDetails(String username) throws IOException {
+        String url = "https://api.twitter.com/2/users/by/username/" + username;
+        return makeRequest(url);
+    }
+
+    public String getUserTweets(String userId) throws IOException {
+        String url = "https://api.twitter.com/2/users/" + userId + "/tweets";
+        return makeRequest(url);
+    }
+
+    private String makeRequest(String url) throws IOException {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet request = new HttpGet(url);
+        request.addHeader("Authorization", "Bearer " + bearerToken);
+        HttpResponse response = httpClient.execute(request);
+        return EntityUtils.toString(response.getEntity());
+    }
+}

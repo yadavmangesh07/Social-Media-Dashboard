@@ -1,0 +1,40 @@
+package com.analytics.social.controller;
+
+import com.analytics.social.service.TwitterV2Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+
+@RestController
+@RequestMapping("/api/twitter/v2")
+public class TwitterV2Controller {
+
+    @Autowired
+    private TwitterV2Service twitterV2Service;
+
+    @GetMapping("/user/{username}")
+    public String getUserDetails(@PathVariable String username) throws IOException {
+        return twitterV2Service.getUserDetails(username);
+    }
+
+    @GetMapping("/user/{username}/tweets")
+    public String getUserTweets(@PathVariable String username) throws IOException {
+        // First, get user details to fetch the userId
+        String userDetails = twitterV2Service.getUserDetails(username);
+        // Extract userId from userDetails JSON response
+        String userId = extractUserIdFromResponse(userDetails);
+        return twitterV2Service.getUserTweets(userId);
+    }
+
+    private String extractUserIdFromResponse(String userDetails) {
+        // Implement JSON parsing to extract userId
+        // Example: { "data": { "id": "12345", "name": "John Doe", "username": "johndoe" } }
+        // You can use libraries like Jackson or Gson to parse the JSON
+        // This is a placeholder implementation
+        return "extracted_user_id";
+    }
+}
